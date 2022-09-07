@@ -7,3 +7,8 @@
 //
 
 import Foundation
+struct ObjectModel {
+    var pathObject3D: String
+    var title: String
+    var image2DName: String
+}
