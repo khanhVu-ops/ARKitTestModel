@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3335ABFD28C9D31600651A8B /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3335ABFC28C9D31600651A8B /* Models.scnassets */; };
 		3382EAB228C79FD0002964AC /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3382EAB128C79FD0002964AC /* IntroVC.swift */; };
 		3382EAB828C7A003002964AC /* Object3DVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3382EAB728C7A003002964AC /* Object3DVC.swift */; };
 		3382EAD828C7AAF3002964AC /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3382EAD728C7AAF3002964AC /* ARKit.framework */; };
+		33D622CE28C9E4F700827378 /* FocusSquareSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D622CC28C9E4F700827378 /* FocusSquareSegment.swift */; };
+		33D622CF28C9E4F700827378 /* FocusSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D622CD28C9E4F700827378 /* FocusSquare.swift */; };
+		33D622D628C9E50F00827378 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D622D528C9E50E00827378 /* Utilities.swift */; };
+		33D622E628C9EA9300827378 /* Car.scn in Resources */ = {isa = PBXBuildFile; fileRef = 33D622E528C9EA9300827378 /* Car.scn */; };
 		553366C62204898800A67647 /* SSDMobileNet_CoreMLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553366C52204898800A67647 /* SSDMobileNet_CoreMLTests.swift */; };
 		553366CF220489DD00A67647 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553366CE220489DD00A67647 /* UIImage+CVPixelBuffer.swift */; };
 		554F149C220362AB00B828B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554F149B220362AB00B828B0 /* AppDelegate.swift */; };
@@ -48,7 +53,6 @@
 		D84271D328C8444F00E27975 /* book_pages.png in Resources */ = {isa = PBXBuildFile; fileRef = D84271CA28C8444E00E27975 /* book_pages.png */; };
 		D84271D428C8444F00E27975 /* mi_cov_ph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D84271CB28C8444E00E27975 /* mi_cov_ph.jpg */; };
 		D84271D528C8444F00E27975 /* Center Table.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D84271CC28C8444E00E27975 /* Center Table.mtl */; };
-		D84271D728C84F1100E27975 /* Car.scn in Resources */ = {isa = PBXBuildFile; fileRef = D84271D628C84F1000E27975 /* Car.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,9 +66,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3335ABFC28C9D31600651A8B /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		3382EAB128C79FD0002964AC /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		3382EAB728C7A003002964AC /* Object3DVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object3DVC.swift; sourceTree = "<group>"; };
 		3382EAD728C7AAF3002964AC /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		33D622CC28C9E4F700827378 /* FocusSquareSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquareSegment.swift; sourceTree = "<group>"; };
+		33D622CD28C9E4F700827378 /* FocusSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSquare.swift; sourceTree = "<group>"; };
+		33D622D528C9E50E00827378 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		33D622E528C9EA9300827378 /* Car.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Car.scn; sourceTree = "<group>"; };
 		553366C32204898800A67647 /* ObjectDetection-CoreMLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectDetection-CoreMLTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		553366C52204898800A67647 /* SSDMobileNet_CoreMLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDMobileNet_CoreMLTests.swift; sourceTree = "<group>"; };
 		553366C72204898800A67647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,7 +116,6 @@
 		D84271CA28C8444E00E27975 /* book_pages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_pages.png; sourceTree = "<group>"; };
 		D84271CB28C8444E00E27975 /* mi_cov_ph.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mi_cov_ph.jpg; sourceTree = "<group>"; };
 		D84271CC28C8444E00E27975 /* Center Table.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Center Table.mtl"; sourceTree = "<group>"; };
-		D84271D628C84F1000E27975 /* Car.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Car.scn; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,16 +137,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3382EAB028C79FB1002964AC /* NewViews */ = {
+		3382EAB028C79FB1002964AC /* 3D */ = {
 			isa = PBXGroup;
 			children = (
+				D842711528C82E5400E27975 /* Object */,
+				33D622D428C9E50E00827378 /* Utilities */,
+				33D622CB28C9E4F700827378 /* Focus Square */,
 				D842712528C831CA00E27975 /* Cell */,
-				3382EAB128C79FD0002964AC /* IntroVC.swift */,
 				3382EAB728C7A003002964AC /* Object3DVC.swift */,
-				554F149D220362AB00B828B0 /* Detect2DVC.swift */,
 				D842712328C831C100E27975 /* ObjectModel.swift */,
 			);
-			path = NewViews;
+			path = 3D;
 			sourceTree = "<group>";
 		};
 		3382EAD628C7AAF3002964AC /* Frameworks */ = {
@@ -147,6 +156,34 @@
 				3382EAD728C7AAF3002964AC /* ARKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		33D622C828C9E4E700827378 /* 2D */ = {
+			isa = PBXGroup;
+			children = (
+				554F149D220362AB00B828B0 /* Detect2DVC.swift */,
+				558918EC2208218800F182BA /* DrawingBoundingBoxView.swift */,
+				71B8322322E2B0BC00207D05 /* ultils */,
+				71B8322222E2B0B200207D05 /* mlmodel */,
+			);
+			path = 2D;
+			sourceTree = "<group>";
+		};
+		33D622CB28C9E4F700827378 /* Focus Square */ = {
+			isa = PBXGroup;
+			children = (
+				33D622CC28C9E4F700827378 /* FocusSquareSegment.swift */,
+				33D622CD28C9E4F700827378 /* FocusSquare.swift */,
+			);
+			path = "Focus Square";
+			sourceTree = "<group>";
+		};
+		33D622D428C9E50E00827378 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				33D622D528C9E50E00827378 /* Utilities.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		553366C42204898800A67647 /* ObjectDetection-CoreMLTests */ = {
@@ -180,16 +217,15 @@
 		554F149A220362AB00B828B0 /* ObjectDetection-CoreML */ = {
 			isa = PBXGroup;
 			children = (
-				D842711528C82E5400E27975 /* Object */,
-				3382EAB028C79FB1002964AC /* NewViews */,
+				3382EAB128C79FD0002964AC /* IntroVC.swift */,
+				33D622C828C9E4E700827378 /* 2D */,
+				3382EAB028C79FB1002964AC /* 3D */,
 				554F149F220362AB00B828B0 /* Main.storyboard */,
 				554F149B220362AB00B828B0 /* AppDelegate.swift */,
-				558918EC2208218800F182BA /* DrawingBoundingBoxView.swift */,
-				71B8322322E2B0BC00207D05 /* ultils */,
-				71B8322222E2B0B200207D05 /* mlmodel */,
 				554F14A2220362AC00B828B0 /* Assets.xcassets */,
 				554F14A4220362AC00B828B0 /* LaunchScreen.storyboard */,
 				554F14A7220362AC00B828B0 /* Info.plist */,
+				3335ABFC28C9D31600651A8B /* Models.scnassets */,
 			);
 			path = "ObjectDetection-CoreML";
 			sourceTree = "<group>";
@@ -215,7 +251,7 @@
 		D842711528C82E5400E27975 /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				D84271D628C84F1000E27975 /* Car.scn */,
+				33D622E528C9EA9300827378 /* Car.scn */,
 				D84271C328C8444E00E27975 /* Center Table */,
 				D842714528C8352300E27975 /* eb_house_plant_01 */,
 				D842716628C8377400E27975 /* IronMan */,
@@ -385,14 +421,15 @@
 				D842715028C8352300E27975 /* eb_house_plant_01_n.tga in Resources */,
 				D842714F28C8352300E27975 /* eb_house_plant_01.mtl in Resources */,
 				554F14A3220362AC00B828B0 /* Assets.xcassets in Resources */,
+				3335ABFD28C9D31600651A8B /* Models.scnassets in Resources */,
 				D842715528C8352300E27975 /* eb_house_plant_01.obj in Resources */,
 				D842715328C8352300E27975 /* eb_house_plant_01_c.tga in Resources */,
 				D842715128C8352300E27975 /* eb_house_plant_01_ren_01.jpg in Resources */,
 				D842715C28C8354B00E27975 /* MI SMART TV.mtl in Resources */,
+				33D622E628C9EA9300827378 /* Car.scn in Resources */,
 				D842715228C8352300E27975 /* eb_house_plant_01.fbx in Resources */,
 				D842715628C8352300E27975 /* eb_basic_material_setup.png in Resources */,
 				554F14A1220362AB00B828B0 /* Main.storyboard in Resources */,
-				D84271D728C84F1100E27975 /* Car.scn in Resources */,
 				D84271D428C8444F00E27975 /* mi_cov_ph.jpg in Resources */,
 				D842715E28C8354B00E27975 /* MI SMART TV.obj in Resources */,
 				D842712928C831E800E27975 /* ListObjectCLTVC.xib in Resources */,
@@ -422,13 +459,16 @@
 			files = (
 				3382EAB828C7A003002964AC /* Object3DVC.swift in Sources */,
 				D842712828C831E800E27975 /* ListObjectCLTVC.swift in Sources */,
+				33D622D628C9E50F00827378 /* Utilities.swift in Sources */,
 				554F149E220362AB00B828B0 /* Detect2DVC.swift in Sources */,
 				558918EF22089FFE00F182BA /* Measure.swift in Sources */,
 				558918ED2208218800F182BA /* DrawingBoundingBoxView.swift in Sources */,
 				553366CF220489DD00A67647 /* UIImage+CVPixelBuffer.swift in Sources */,
 				554F14AE220362DA00B828B0 /* VideoCapture.swift in Sources */,
+				33D622CE28C9E4F700827378 /* FocusSquareSegment.swift in Sources */,
 				D842712428C831C100E27975 /* ObjectModel.swift in Sources */,
 				3382EAB228C79FD0002964AC /* IntroVC.swift in Sources */,
+				33D622CF28C9E4F700827378 /* FocusSquare.swift in Sources */,
 				715E7E6C2235DC75008DBC6F /* MobileNetV2_SSDLite.mlmodel in Sources */,
 				554F149C220362AB00B828B0 /* AppDelegate.swift in Sources */,
 			);
