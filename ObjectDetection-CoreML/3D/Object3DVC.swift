@@ -14,7 +14,10 @@ class Object3DVC: UIViewController {
     @IBOutlet weak var cltvListObject: UICollectionView!
     @IBOutlet weak var btnMeasure: UIButton!
     var itemSelected = ""
+    var tapMeasure = false
     var currentNode = SCNNode()
+    var positionCurrentNode = SIMD3<Float>()
+    var list3DPosition: [SIMD3<Float>] = []
     let listObject: [ObjectModel] = [ObjectModel(pathObject3D: "vase.scn", title: "vase", image2DName: "vase"),
                                      ObjectModel(pathObject3D: "sticky note.scn", title: "sticky note", image2DName: "sticky note"),
                                      ObjectModel(pathObject3D: "painting.scn", title: "painting", image2DName: "painting"),
@@ -67,18 +70,19 @@ class Object3DVC: UIViewController {
         sceneView.autoenablesDefaultLighting = true
         configuration.planeDetection = .horizontal
         configuration.environmentTexturing = .automatic
+        sceneView.session.delegate = self
         // Run the view's session
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+    
         // Pause the view's session
         sceneView.session.pause()
     }
   
-    
+    //MARK: add object 3d
     func addObject(position: SIMD3<Float>) {
         
         if itemSelected != "" {
@@ -87,7 +91,7 @@ class Object3DVC: UIViewController {
                 return
             }
             let modelNode = scence.rootNode
-            modelNode.name = "Car"
+            modelNode.name = "\(list3DPosition.count)"
             print(position)
             modelNode.simdPosition = SIMD3(position.x, position.y, position.z)
             modelNode.simdPosition = position
@@ -98,6 +102,8 @@ class Object3DVC: UIViewController {
             }
             modelNode.categoryBitMask = BodyType.ObjectModel.rawValue
             self.sceneView.scene.rootNode.addChildNode(modelNode)
+            list3DPosition.append(position)
+            positionCurrentNode = position
             self.itemSelected = ""
             
             //            myObjectNodes.insert(modelNode)
@@ -107,35 +113,121 @@ class Object3DVC: UIViewController {
         
     }
     
-    func getParentNodeOf(_ nodeFound: SCNNode?) -> SCNNode? {
+    
+    // gett parent node of nodes child was hitTest detected.
+    func getParentNodeOf(_ nodeFound: SCNNode?, name: String) -> SCNNode? {
         if let node = nodeFound {
-            if node.name == "Car" {
+            if node.name == name {
                 return node
             } else if let parent = node.parent {
-                return getParentNodeOf(parent)
+//                print(node.name)
+                return getParentNodeOf(parent, name: name)
             }
         }
         return nil
     }
     
+    // Check object 3d existed tap location
     func checkVituralObjectExitsLocation(location: CGPoint, recognizerView: ARSCNView) -> SCNNode?{
         
         
         let hitTestResults = self.sceneView.hitTest(location, options: [.categoryBitMask: BodyType.ObjectModel.rawValue])
+        
         for result in hitTestResults {
-            if let node1 = getParentNodeOf(result.node) {
-                return node1
+            for index in 0..<list3DPosition.count {
+                if let node1 = getParentNodeOf(result.node, name: String(index)) {
+                    positionCurrentNode = list3DPosition[index]
+                    return node1
+                }
             }
+           
         }
         return nil
     }
     
+    //MARK: Measure distance from object to plane
+    func measureTheDistanceFromObjectToPlane(objLocation: SIMD3<Float>) {
+        let sphereNode = SphereNode(position: objLocation)
+        sceneView.scene.rootNode.addChildNode(sphereNode)
+        
+        let distance = currentNode.position.distance(to: sphereNode.position)
+        print(distance)
+        
+//        let ray = SCNBox(width: 0.001, height: 0.001, length: distance, chamferRadius: 0)
+//        ray.firstMaterial?.diffuse.contents = UIColor.black
+//        let node = SCNNode(geometry: ray)
+//        let rayLocation = centerPoint(from: positionCurrentNode, to: objLocation)
+//        node.simdTransform.translation = rayLocation
+//        sceneView.scene.rootNode.addChildNode(node)
+        
+        //line
+        let line = SCNGeometry.line(from: positionCurrentNode, to: objLocation)
+        let lineNode = SCNNode(geometry: line)
+        lineNode.position = SCNVector3Zero
+        sceneView.scene.rootNode.addChildNode(lineNode)
+        
+        
+        let text = SCNText(string: "", extrusionDepth: 0.1)
+        text.font = .systemFont(ofSize: 5)
+        text.firstMaterial?.diffuse.contents = UIColor.white
+        text.alignmentMode  = CATextLayerAlignmentMode.center.rawValue
+        text.truncationMode = CATextLayerTruncationMode.middle.rawValue
+        text.firstMaterial?.isDoubleSided = true
+        text.string = String(format: "%.2f cm", distance*100)
+        let textWrapperNode = SCNNode(geometry: text)
+        textWrapperNode.eulerAngles = SCNVector3Make(0, .pi, 0)
+        textWrapperNode.scale = SCNVector3(1/500.0, 1/500.0, 1/500.0)
+
+        let textNode = SCNNode()
+        textNode.addChildNode(textWrapperNode)
+        let constraint = SCNLookAtConstraint(target: sceneView.pointOfView)
+        constraint.isGimbalLockEnabled = true
+        textNode.constraints = [constraint]
+        textNode.simdTransform.translation = centerPoint(from: positionCurrentNode, to: objLocation)
+        sceneView.scene.rootNode.addChildNode(textNode)
+        
+    }
+    
+    // caculate center 2 point
+    
+    func centerPoint(from A: SIMD3<Float>, to B: SIMD3<Float>) -> SIMD3<Float>{
+        let centerX = (A.x + B.x)/2;
+        let centerY = (A.y + B.y)/2;
+        let centerZ = (A.z + B.z)/2;
+        
+        let center = SIMD3(x: centerX, y: centerY, z: centerZ)
+        return center
+    }
+    
     //MARK: @objc func
     
+    @objc func didTap(_ gesture: UITapGestureRecognizer) {
+        guard let scene = gesture.view as? ARSCNView else {return}
+        let position = gesture.location(in: scene)
+        
+        // check virtual content exits location
+        if let nodeExit = checkVituralObjectExitsLocation(location: position, recognizerView: scene) {
+            currentNode = nodeExit
+        }
+        else {
+            let results = scene.hitTest(position, types: .estimatedHorizontalPlane)
+            guard let hitFeature = results.first else {
+                return
+            }
+            let touchLocation = hitFeature.worldTransform.translation
+            
+            if !tapMeasure {
+                addObject(position: touchLocation)
+            }else {
+                measureTheDistanceFromObjectToPlane(objLocation: touchLocation)
+            }
+        }
+      
+    }
+    
+    // scale object
     @objc func scaleObject(_ gesture: UIPinchGestureRecognizer) {
-
-//        let location = gesture.location(in: sceneView)
-       
+        
         if gesture.state == .changed {
 
             let pinchScaleX: CGFloat = gesture.scale * CGFloat((currentNode.scale.x))
@@ -149,30 +241,7 @@ class Object3DVC: UIViewController {
 
     }
     
-    @objc func didTap(_ gesture: UITapGestureRecognizer) {
-        guard let scene = gesture.view as? ARSCNView else {return}
-        let position = gesture.location(in: scene)
-        
-        // check virtual content exits location
-        
-        if let nodeExit = checkVituralObjectExitsLocation(location: position, recognizerView: scene) {
-            currentNode = nodeExit
-        }
-        else {
-            let results = scene.hitTest(position, types: .estimatedHorizontalPlane)
-            guard let hitFeature = results.first else {
-                return
-            }
-            
-//            let hitTransform = SCNMatrix4(hitFeature.worldTransform)
-//            let hitPosition = SCNVector3(hitTransform.m41,
-//                                         hitTransform.m42,
-//                                         hitTransform.m43)
-            let touchLocation = hitFeature.worldTransform.translation
-            addObject(position: touchLocation)
-        }
-      
-    }
+    
     
     
     @objc func rotation(_ gesture: UIRotationGestureRecognizer) {
@@ -215,14 +284,23 @@ class Object3DVC: UIViewController {
             
             if let movedNode = moveNode {
                 print("OK")
+                guard let query = recognizerView.raycastQuery(from: touch, allowing: .estimatedPlane, alignment: .horizontal)else {
+                    return
+                }
+                guard let planeHit = recognizerView.session.raycast(query).first else {
+                    return
+                }
                 currentNode = movedNode
+                positionCurrentNode = planeHit.worldTransform.translation
+                let id = Int(currentNode.name ?? "")
+                list3DPosition[id!] = positionCurrentNode
                 moveNode = nil
                 print("10")
             }
             
         }
     }
-    var tapMeasure = false
+    
     
     @IBAction func didTapMeasure(_ sender: Any) {
         btnMeasure.tintColor = tapMeasure ? .blue : .gray
@@ -249,8 +327,11 @@ extension Object3DVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         itemSelected = listObject[indexPath.row].pathObject3D
         
     }
-    //    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-    //        cltvListObject.deselectItem(at: indexPath, animated: true)
-    //    }
-    
+  
+}
+
+extension Object3DVC: ARSessionDelegate {
+    func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
+        return true
+    }
 }

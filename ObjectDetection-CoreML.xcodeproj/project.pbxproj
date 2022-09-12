@@ -90,6 +90,7 @@
 		D84D022C28CB4621001C8A8B /* book_pages.png in Resources */ = {isa = PBXBuildFile; fileRef = D84D022328CB4621001C8A8B /* book_pages.png */; };
 		D84D022D28CB4621001C8A8B /* mi_cov_ph.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D84D022428CB4621001C8A8B /* mi_cov_ph.jpg */; };
 		D84D022E28CB4621001C8A8B /* Center Table.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D84D022528CB4621001C8A8B /* Center Table.mtl */; };
+		D8C386B828CEC5780028D9FF /* SphereNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C386B728CEC5780028D9FF /* SphereNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +191,7 @@
 		D84D022328CB4621001C8A8B /* book_pages.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book_pages.png; sourceTree = "<group>"; };
 		D84D022428CB4621001C8A8B /* mi_cov_ph.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mi_cov_ph.jpg; sourceTree = "<group>"; };
 		D84D022528CB4621001C8A8B /* Center Table.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Center Table.mtl"; sourceTree = "<group>"; };
+		D8C386B728CEC5780028D9FF /* SphereNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SphereNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 				D842712528C831CA00E27975 /* Cell */,
 				3382EAB728C7A003002964AC /* Object3DVC.swift */,
 				D842712328C831C100E27975 /* ObjectModel.swift */,
+				D8C386B728CEC5780028D9FF /* SphereNode.swift */,
 			);
 			path = 3D;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				33D622CE28C9E4F700827378 /* FocusSquareSegment.swift in Sources */,
 				D842712428C831C100E27975 /* ObjectModel.swift in Sources */,
 				3382EAB228C79FD0002964AC /* IntroVC.swift in Sources */,
+				D8C386B828CEC5780028D9FF /* SphereNode.swift in Sources */,
 				33D622CF28C9E4F700827378 /* FocusSquare.swift in Sources */,
 				715E7E6C2235DC75008DBC6F /* MobileNetV2_SSDLite.mlmodel in Sources */,
 				554F149C220362AB00B828B0 /* AppDelegate.swift in Sources */,

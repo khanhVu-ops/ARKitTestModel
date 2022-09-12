@@ -56,3 +56,27 @@ extension CGPoint {
         return sqrt(x * x + y * y)
     }
 }
+
+
+extension SCNVector3 {
+    func distance(to destination: SCNVector3) -> CGFloat {
+        let dx = destination.x - x
+        let dy = destination.y - y
+        let dz = destination.z - z
+        return CGFloat(sqrt(dx*dx + dy*dy + dz*dz))
+    }
+    
+    static func positionFrom(matrix: matrix_float4x4) -> SCNVector3 {
+        let column = matrix.columns.3
+        return SCNVector3(column.x, column.y, column.z)
+    }
+}
+
+extension SCNGeometry {
+    class func line(from vector1: SIMD3<Float>, to vector2: SIMD3<Float>) -> SCNGeometry {
+        let indices: [Int32] = [0, 1]
+        let source = SCNGeometrySource(vertices: [SCNVector3(vector1), SCNVector3(vector2)])
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+        return SCNGeometry(sources: [source], elements: [element])
+    }
+}
